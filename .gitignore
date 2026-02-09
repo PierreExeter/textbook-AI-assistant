@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+
+# Vector store
+.textbook_ai_index/
+
+# UV
+uv.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Chainlit
+.chainlit/
