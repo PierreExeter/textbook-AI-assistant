@@ -9,6 +9,7 @@ ingest:
     do_ocr: true
     do_table_structure: true
     num_threads: 8
+    accelerator_device: "cpu"
 
 embeddings:
   provider: "huggingface"

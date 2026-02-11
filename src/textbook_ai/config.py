@@ -28,6 +28,7 @@ class PdfIngestConfig:
     do_ocr: bool = True
     do_table_structure: bool = True
     num_threads: int = 8
+    accelerator_device: str = "cpu"
 
 
 @dataclass

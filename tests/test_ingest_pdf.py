@@ -2,10 +2,11 @@
 
 from unittest.mock import MagicMock, patch
 
+from docling.datamodel.base_models import InputFormat
 from llama_index.core.schema import Document
 
-from textbook_ai.config import IngestConfig
-from textbook_ai.ingest.pdf import load_pdf
+from textbook_ai.config import IngestConfig, PdfIngestConfig
+from textbook_ai.ingest.pdf import _build_converter, load_pdf
 
 
 def test_load_pdf_calls_docling_reader() -> None:
@@ -48,3 +49,27 @@ def test_load_pdf_custom_config() -> None:
         load_pdf("/path/to/test.pdf", config)
 
     mock_build.assert_called_once_with(config)
+
+
+@patch("textbook_ai.ingest.pdf.DocumentConverter")
+def test_build_converter_sets_accelerator_options(mock_converter_cls: MagicMock) -> None:
+    """_build_converter should configure AcceleratorOptions with device and num_threads."""
+    config = IngestConfig(pdf=PdfIngestConfig(accelerator_device="cuda", num_threads=4))
+    _build_converter(config)
+
+    call_kwargs = mock_converter_cls.call_args.kwargs
+    pipeline_options = call_kwargs["format_options"][InputFormat.PDF].pipeline_options
+    assert pipeline_options.accelerator_options.device == "cuda"
+    assert pipeline_options.accelerator_options.num_threads == 4
+
+
+@patch("textbook_ai.ingest.pdf.DocumentConverter")
+def test_build_converter_defaults_to_cpu(mock_converter_cls: MagicMock) -> None:
+    """_build_converter should default to CPU accelerator device."""
+    config = IngestConfig()
+    _build_converter(config)
+
+    call_kwargs = mock_converter_cls.call_args.kwargs
+    pipeline_options = call_kwargs["format_options"][InputFormat.PDF].pipeline_options
+    assert pipeline_options.accelerator_options.device == "cpu"
+    assert pipeline_options.accelerator_options.num_threads == 8

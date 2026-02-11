@@ -2,6 +2,7 @@
 
 import logging
 
+from docling.datamodel.accelerator_options import AcceleratorOptions
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
@@ -18,6 +19,10 @@ def _build_converter(config: IngestConfig) -> DocumentConverter:
     pipeline_options = PdfPipelineOptions()
     pipeline_options.do_ocr = config.pdf.do_ocr
     pipeline_options.do_table_structure = config.pdf.do_table_structure
+    pipeline_options.accelerator_options = AcceleratorOptions(
+        device=config.pdf.accelerator_device,
+        num_threads=config.pdf.num_threads,
+    )
 
     return DocumentConverter(
         format_options={
