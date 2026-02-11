@@ -45,6 +45,7 @@ class HuggingFaceEmbeddingsConfig:
     """HuggingFace embeddings configuration."""
 
     model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
+    device: str = "cpu"
 
 
 @dataclass

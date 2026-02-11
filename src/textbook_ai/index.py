@@ -36,7 +36,10 @@ def _configure_global_settings(config: AppConfig) -> None:
 
     # Embeddings
     if config.embeddings.provider == "huggingface":
-        Settings.embed_model = HuggingFaceEmbedding(model_name=config.embeddings.huggingface.model_name)
+        Settings.embed_model = HuggingFaceEmbedding(
+            model_name=config.embeddings.huggingface.model_name,
+            device=config.embeddings.huggingface.device,
+        )
     elif config.embeddings.provider == "openai":
         embed_api_key = os.environ.get(config.embeddings.openai.api_key_env, "")
         Settings.embed_model = OpenAIEmbedding(model_name=config.embeddings.openai.model_name, api_key=embed_api_key)

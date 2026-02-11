@@ -7,8 +7,8 @@ import pytest
 from llama_index.core import Settings
 from llama_index.core.schema import Document
 
-from textbook_ai.config import AppConfig
-from textbook_ai.index import _get_collection_name, get_or_create_index, index_exists
+from textbook_ai.config import AppConfig, HuggingFaceEmbeddingsConfig
+from textbook_ai.index import _configure_global_settings, _get_collection_name, get_or_create_index, index_exists
 
 
 @pytest.fixture(autouse=True)
@@ -91,3 +91,38 @@ def test_get_or_create_index_loads_existing(mock_settings: MagicMock, tmp_path: 
     # Load existing (no documents needed)
     index = get_or_create_index(None, config)
     assert index is not None
+
+
+@patch("textbook_ai.index.HuggingFaceEmbedding")
+@patch("textbook_ai.index.OpenAILike")
+@patch("llama_index.core.settings.resolve_embed_model", side_effect=lambda em, **kw: em)
+@patch("llama_index.core.settings.resolve_llm", side_effect=lambda llm, **kw: llm)
+def test_configure_global_settings_passes_device_to_embeddings(
+    _mock_resolve_llm: MagicMock, _mock_resolve_embed: MagicMock, mock_llm: MagicMock, mock_hf_embed: MagicMock
+) -> None:
+    """_configure_global_settings should pass device from config to HuggingFaceEmbedding."""
+    config = AppConfig()
+    config.embeddings.huggingface = HuggingFaceEmbeddingsConfig(device="cuda")
+    _configure_global_settings(config)
+
+    mock_hf_embed.assert_called_once_with(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        device="cuda",
+    )
+
+
+@patch("textbook_ai.index.HuggingFaceEmbedding")
+@patch("textbook_ai.index.OpenAILike")
+@patch("llama_index.core.settings.resolve_embed_model", side_effect=lambda em, **kw: em)
+@patch("llama_index.core.settings.resolve_llm", side_effect=lambda llm, **kw: llm)
+def test_configure_global_settings_defaults_device_to_cpu(
+    _mock_resolve_llm: MagicMock, _mock_resolve_embed: MagicMock, mock_llm: MagicMock, mock_hf_embed: MagicMock
+) -> None:
+    """_configure_global_settings should default HuggingFace device to cpu."""
+    config = AppConfig()
+    _configure_global_settings(config)
+
+    mock_hf_embed.assert_called_once_with(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        device="cpu",
+    )

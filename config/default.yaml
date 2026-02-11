@@ -15,6 +15,7 @@ embeddings:
   provider: "huggingface"
   huggingface:
     model_name: "sentence-transformers/all-MiniLM-L6-v2"
+    device: "cpu"
   openai:
     model_name: "text-embedding-3-small"
     api_key_env: "OPENAI_API_KEY"
