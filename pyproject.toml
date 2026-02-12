@@ -43,7 +43,8 @@ pythonVersion = "3.11"
 venvPath = "."
 venv = ".venv"
 typeCheckingMode = "standard"
-exclude = ["booktutor-ai"]
+include = ["src"]
+exclude = ["booktutor-ai", "docs", "config"]
 
 [build-system]
 requires = ["hatchling"]
