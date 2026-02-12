@@ -22,9 +22,6 @@ build/
 # Vector store
 .textbook_ai_index/
 
-# UV
-uv.lock
-
 # OS
 .DS_Store
 Thumbs.db
