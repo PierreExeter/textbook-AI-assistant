@@ -31,3 +31,4 @@ Thumbs.db
 
 # Chainlit
 .chainlit/
+chainlit.md

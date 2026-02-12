@@ -5,6 +5,8 @@
 
 An interactive AI tutor for textbooks using RAG (Retrieval-Augmented Generation). Ingests PDF or web sources into a ChromaDB vector store, then answers questions via a LlamaIndex chat engine (interactive CLI or Chainlit web UI).
 
+![chainlit-UI](docs/assets/images/chainlit-screenshot.png)
+
 ## Features
 
 - **Multi-source ingestion** — PDF files (with OCR and table extraction via Docling) and web URLs
@@ -88,22 +90,22 @@ If using the default local LLM:
 
 ```bash
 # Ask questions about a PDF textbook
-uv run textbook-ai path/to/textbook.pdf
+uv run textbook-ai textbook/attention-is-all-you-need.pdf
 
 # Ask questions about a web page
 uv run textbook-ai https://example.com/article
 
 # Override the LLM model
-uv run textbook-ai path/to/textbook.pdf --llm-model mistral
+uv run textbook-ai textbook/attention-is-all-you-need.pdf --llm-model mistral
 
 # Use OpenAI embeddings instead of HuggingFace
-uv run textbook-ai path/to/textbook.pdf --provider openai
+uv run textbook-ai textbook/attention-is-all-you-need.pdf --provider openai
 
 # Use a custom config file
-uv run textbook-ai path/to/textbook.pdf --config my_config.yaml
+uv run textbook-ai textbook/attention-is-all-you-need.pdf --config my_config.yaml
 
 # Verbose logging
-uv run textbook-ai path/to/textbook.pdf -v
+uv run textbook-ai textbook/attention-is-all-you-need.pdf -v
 ```
 
 The CLI auto-detects the source type (PDF vs. web) from the path. Type your questions interactively, and type `quit` or `exit` to stop.
@@ -111,7 +113,7 @@ The CLI auto-detects the source type (PDF vs. web) from the path. Type your ques
 ### Web UI
 
 ```bash
-TEXTBOOK_AI_SOURCE__PATH=path/to/textbook.pdf uv run chainlit run src/textbook_ai/chainlit_app.py
+TEXTBOOK_AI_SOURCE__PATH=textbook/attention-is-all-you-need.pdf uv run chainlit run src/textbook_ai/chainlit_app.py
 ```
 
 The Chainlit app opens in your browser at `http://localhost:8000`.
