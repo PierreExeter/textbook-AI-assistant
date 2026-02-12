@@ -19,17 +19,19 @@ An interactive AI tutor for textbooks using RAG (Retrieval-Augmented Generation)
 
 ## Documentation
 
+Full documentation is available at **[pierreexeter.github.io/textbook-AI-assistant](https://pierreexeter.github.io/textbook-AI-assistant/)**.
+
 | | |
 |---|---|
-| **[Getting Started](docs/getting-started.md)** | Install, pull a model, and ask your first question |
-| **[Usage](docs/usage.md)** | CLI flags, web UI, LLM and embedding provider switching |
-| **[Configuration](docs/configuration.md)** | Full reference for all config fields |
-| **[Architecture](docs/architecture.md)** | System overview, data flow, and design decisions |
-| **[Contributing](docs/contributing.md)** | Dev setup, testing, code style, and extension guides |
+| **[Getting Started](https://pierreexeter.github.io/textbook-AI-assistant/getting-started/)** | Install, pull a model, and ask your first question |
+| **[Usage](https://pierreexeter.github.io/textbook-AI-assistant/usage/)** | CLI flags, web UI, LLM and embedding provider switching |
+| **[Configuration](https://pierreexeter.github.io/textbook-AI-assistant/configuration/)** | Full reference for all config fields |
+| **[Architecture](https://pierreexeter.github.io/textbook-AI-assistant/architecture/)** | System overview, data flow, and design decisions |
+| **[Contributing](https://pierreexeter.github.io/textbook-AI-assistant/contributing/)** | Dev setup, testing, code style, and extension guides |
 
 ## Quick Start
 
-Requires Python 3.11+, [uv](https://docs.astral.sh/uv/), and [Ollama](https://ollama.com/) (or any OpenAI-compatible API). See [Getting Started](docs/getting-started.md) for full details.
+Requires Python 3.11+, [uv](https://docs.astral.sh/uv/), and [Ollama](https://ollama.com/) (or any OpenAI-compatible API). See [Getting Started](https://pierreexeter.github.io/textbook-AI-assistant/getting-started/) for full details.
 
 ```bash
 git clone https://github.com/PierreExeter/textbook-AI-assistant.git
@@ -51,7 +53,7 @@ uv run textbook-ai textbook/attention-is-all-you-need.pdf
 uv run textbook-ai https://example.com/article
 ```
 
-See [Usage](docs/usage.md) for all CLI flags and provider recipes.
+See [Usage](https://pierreexeter.github.io/textbook-AI-assistant/usage/) for all CLI flags and provider recipes.
 
 ### Web UI
 
@@ -61,7 +63,7 @@ TEXTBOOK_AI_SOURCE__PATH=textbook/attention-is-all-you-need.pdf uv run chainlit 
 
 ## Configuration
 
-Configuration is resolved in priority order: CLI flags > env vars > user YAML > defaults. Any field can be overridden via `TEXTBOOK_AI_SECTION__KEY` environment variables. See [Configuration](docs/configuration.md) for the full reference.
+Configuration is resolved in priority order: CLI flags > env vars > user YAML > defaults. Any field can be overridden via `TEXTBOOK_AI_SECTION__KEY` environment variables. See [Configuration](https://pierreexeter.github.io/textbook-AI-assistant/configuration/) for the full reference.
 
 ## Security Notes
 
@@ -75,4 +77,4 @@ Configuration is resolved in priority order: CLI flags > env vars > user YAML > 
 
 ## Contributing
 
-Contributions are welcome! See the [Contributing Guide](docs/contributing.md) for dev setup, testing, and code style.
+Contributions are welcome! See the [Contributing Guide](https://pierreexeter.github.io/textbook-AI-assistant/contributing/) for dev setup, testing, and code style.
