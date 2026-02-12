@@ -3,6 +3,7 @@
 import logging
 
 import chainlit as cl
+import openai
 
 from textbook_ai.config import load_config
 from textbook_ai.engine import build_chat_engine
@@ -43,7 +44,13 @@ async def on_message(message: cl.Message) -> None:
         await cl.Message(content="Chat engine not initialized. Please configure a source path and restart.").send()
         return
 
-    response = await cl.make_async(engine.chat)(message.content)
+    try:
+        response = await cl.make_async(engine.chat)(message.content)
+    except openai.APIConnectionError:
+        await cl.Message(
+            content="Could not connect to the LLM server. Make sure Ollama is running and try again."
+        ).send()
+        return
 
     source_text = ""
     if response.source_nodes:

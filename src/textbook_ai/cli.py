@@ -3,6 +3,8 @@
 import argparse
 import logging
 
+import openai
+
 from textbook_ai.config import AppConfig, load_config
 from textbook_ai.engine import build_chat_engine
 
@@ -67,7 +69,12 @@ def run_interactive_loop(config: AppConfig) -> None:
             print("Goodbye!")
             break
 
-        response = engine.chat(question)
+        try:
+            response = engine.chat(question)
+        except openai.APIConnectionError:
+            print(f"\nError: Could not connect to the LLM server at {config.llm.api_base}")
+            print("Make sure Ollama is running (e.g. `ollama serve`) and try again.\n")
+            continue
 
         print(f"\nAnswer: {response.response}\n")
 
