@@ -5,7 +5,7 @@ description = "Interactive AI tutor for textbooks — supports PDF and web sourc
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "chromadb>=1.0.0",
+    "chromadb===1.5.9",
     "llama-index-core>=0.12.0",
     "llama-index-embeddings-huggingface>=0.5.0",
     "llama-index-embeddings-openai>=0.3.0",
